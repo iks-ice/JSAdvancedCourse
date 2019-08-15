@@ -10,4 +10,4 @@ const camelize = str => {
     return str.split('-').map(firstLetterToUpperCase).join('');
 }
 
-console.log(camelize('element-style-display'));
+console.log(camelize('-webkit-transition'));
