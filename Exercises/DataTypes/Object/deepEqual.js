@@ -19,7 +19,7 @@ let b = {
             b: 2
         }
     },
-
+    ad: 2,
 };
 
 
@@ -29,19 +29,15 @@ let b = {
 const deepEqual = (obj1, obj2) => {
     let isEqual = false;
 
-    const keysObj1 = Object.keys(obj1);
-    const keysObj2 = Object.keys(obj2);
-
-    if (keysObj1.length !== keysObj2.length) {
+    if (Object.keys(obj1).length !== Object.keys(obj2).length) {
         return isEqual;
     }
 
     const compare = (obj1, obj2) => {
         for (const prop in obj1) {
+
             if (typeof obj1[prop] === 'object') {
-                if (!compare(obj1[prop], obj2[prop])) {
-                    return isEqual;
-                }
+                return compare(obj1[prop], obj2[prop]);
             } else if (obj1[prop] !== obj2[prop]) {
                 isEqual = false;
                 return isEqual;
