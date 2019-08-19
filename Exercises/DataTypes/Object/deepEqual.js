@@ -7,7 +7,7 @@ let a = {
             b: 2
         }
     },
-    ad: 2,
+    ad: false,
     name: 'Misha',
 };
 
@@ -19,12 +19,19 @@ let b = {
             b: 2
         }
     },
-    ad: 2,
+    ad: NaN,
 };
 
 
 // console.log(a === b);
-
+const isEmpty = obj => {
+    for (const key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            return false;
+        }
+    }
+    return true;
+}
 
 const deepEqual = (obj1, obj2) => {
     let isEqual = false;
@@ -35,16 +42,22 @@ const deepEqual = (obj1, obj2) => {
 
     const compare = (obj1, obj2) => {
         for (const prop in obj1) {
-
             if (typeof obj1[prop] === 'object') {
-                return compare(obj1[prop], obj2[prop]);
-            } else if (obj1[prop] !== obj2[prop]) {
-                isEqual = false;
-                return isEqual;
-            } else {
+                if ((isEmpty(obj1[prop]) && isEmpty(obj2[prop]))
+                    || (obj1[prop] === null && obj2[prop] === null)) {
+                    isEqual = true;
+                } else if (!compare(obj1[prop], obj2[prop])) {
+                    return isEqual;
+                }
+            } else if ((isNaN(obj1[prop]) && isNaN(obj2[prop]))) {
                 isEqual = true;
+            } else if (obj1[prop] == obj2[prop]) {
+                isEqual = true;
+            } else {
+                return isEqual = false;
             }
         }
+        return isEqual;
     }
 
     compare(obj1, obj2);

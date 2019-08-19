@@ -1,3 +1,4 @@
+'use strict';
 let menu = {
     width: 200,
     height: 300,
@@ -13,5 +14,7 @@ const multiplyNumeric = obj => {
 
 multiplyNumeric(menu);
 console.log(menu);
+
+
 
 
