@@ -7,7 +7,7 @@ let a = {
             b: 2
         }
     },
-    ad: false,
+    ad: true,
     name: 'Misha',
 };
 
@@ -19,7 +19,7 @@ let b = {
             b: 2
         }
     },
-    ad: NaN,
+    ad: true,
 };
 
 
@@ -34,35 +34,25 @@ const isEmpty = obj => {
 }
 
 const deepEqual = (obj1, obj2) => {
-    let isEqual = false;
-
-    if (Object.keys(obj1).length !== Object.keys(obj2).length) {
-        return isEqual;
+    // debugger
+    if (obj1 === obj2) {
+        return true;
+    }
+    if (obj1 === null || obj2 === null) {
+        return false;
+    }
+    if (typeof obj1 !== 'object' && typeof obj2 !== 'object' && obj1 !== obj2) {
+        return false;
+    }
+    const keysObj1 = Object.keys(obj1);
+    const keysObj2 = Object.keys(obj2);
+    if (keysObj1.length !== keysObj2.length) {
+        return false;
     }
 
-    const compare = (obj1, obj2) => {
-        for (const prop in obj1) {
-            if (typeof obj1[prop] === 'object') {
-                if ((isEmpty(obj1[prop]) && isEmpty(obj2[prop]))
-                    || (obj1[prop] === null && obj2[prop] === null)) {
-                    isEqual = true;
-                } else if (!compare(obj1[prop], obj2[prop])) {
-                    return isEqual;
-                }
-            } else if ((isNaN(obj1[prop]) && isNaN(obj2[prop]))) {
-                isEqual = true;
-            } else if (obj1[prop] == obj2[prop]) {
-                isEqual = true;
-            } else {
-                return isEqual = false;
-            }
-        }
-        return isEqual;
-    }
+    return keysObj1.every(key => deepEqual(obj1[key], obj2[key]));
 
-    compare(obj1, obj2);
 
-    return isEqual;
 }
 
 console.log(deepEqual(a, b));

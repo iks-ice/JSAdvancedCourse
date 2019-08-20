@@ -23,20 +23,12 @@ let style = `
 `;
 
 const styleToObject = str => {
-    const arrayStyles = str.split(';')
-        .map(line => line.split(':')
-            .map(word => word.trim()));
-
-    let result = {};
-    for (const key in arrayStyles) {
-        if (arrayStyles.hasOwnProperty(key) && arrayStyles[key][0]) {
-            let o = {
-                [arrayStyles[key][0]]: arrayStyles[key][1]
-            }
-            Object.assign(result, o);
-        }
-    }
-
-    return result;
+    return str.split(';')
+        .map(line => line.trim())
+        .filter(Boolean)
+        .reduce((accum, elem) => ({
+            ...accum,
+            ...{[elem.split(':')[0]]: elem.split(':')[1].trim()}
+        }), {})
 }
-styleToObject(style);
+console.log(styleToObject(style));
