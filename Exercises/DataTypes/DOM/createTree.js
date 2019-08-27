@@ -21,9 +21,10 @@ let data = {
 // div.innerHTML = str;
 // document.body.append(div);
 
-createTree(document.body, data)
-function createUl () {
+createTree(document.body, data);
 
+function createUl () {
+    return document.createElement('ul');
 }
 function fillList (ul, obj) {
     const lis = Object.keys((obj));
@@ -36,6 +37,8 @@ function fillList (ul, obj) {
 }
 function createTree (container, data) {
     const upperUl = document.createElement('ul');
+
+
     fillList(upperUl, data);
 
     container.append(upperUl);
