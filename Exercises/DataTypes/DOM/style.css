@@ -1,29 +1,14 @@
-.external {
-    background: yellow;
-}
-/* Styles go here */
 
+
+.container {
+    width: 100vh;
+    background: grey;
+}
 table, td {
     border: 1px solid #cecece;
     padding: 10px;
 }
-
+    
 thead {
     font-weight: 700;
-}
-
-.male td {
-    background-color: #65bff3;
-}
-
-.female td {
-    background-color: #932bb3;
-}
-
-.available td {
-    border: 2px solid green;
-}
-
-.unavailable td {
-    border: 2px solid red;
 }
