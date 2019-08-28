@@ -49,3 +49,17 @@ const createCalendar = (elem, year, month) => {
 }
 const container = document.querySelector('.container');
 createCalendar(container, 2019, 6);
+
+
+// .container {
+//     width: 100vh;
+//     background: grey;
+// }
+// table, td {
+//     border: 1px solid #cecece;
+//     padding: 10px;
+// }
+
+// thead {
+//     font-weight: 700;
+// }
