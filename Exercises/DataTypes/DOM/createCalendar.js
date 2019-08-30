@@ -1,27 +1,24 @@
 const createCalendar = (elem, year, month) => {
-    const mapWeekDays = new Map([[1, 'Пн'], [2, 'Вт'], [3, 'Ср'], [4, 'Чт'], [5, 'Пт'], [6, 'Сб'], [7, 'Вс']]);
+    const weekDays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
     const createElement = tag => document.createElement(tag);
 
     const firstDay = new Date(year, month, 1).getDay();
-    const firstDayInRus = mapWeekDays.get(firstDay);
     const lastMonthDay = new Date(year, month + 1, 0).getDate();
 
-    const createTHead = nameWeekDays => {
+    const createTHead = weekDayNames => {
         const thead = createElement('thead');
-        const days = nameWeekDays.values();
         const tr = createElement('tr');
-        for (const day of days) {
+        weekDayNames.forEach(name => {
             const td = createElement('td');
-            td.innerHTML = day;
+            td.innerHTML = name;
             tr.append(td);
-        }
+        });
         thead.append(tr);
         return thead;
     }
 
     const createTBody = () => {
         const tbody = createElement('tbody');
-        let isFirstDayFilled = false;
 
         for (let day = 1; day <= lastMonthDay;) {
             const tr = createElement('tr');
@@ -30,12 +27,12 @@ const createCalendar = (elem, year, month) => {
                 if (day > lastMonthDay) {
                     break;
                 }
-                if (mapWeekDays.get(index) === firstDayInRus) {
+                if (index === firstDay) {
                     td.innerHTML = day++;
-                    isFirstDayFilled = true;
-                } else if (isFirstDayFilled) {
-                    td.innerHTML = day++;
+                    tr.append(td);
+                    continue;
                 }
+                td.innerHTML = day++;
                 tr.append(td);
             }
             tbody.append(tr);
@@ -44,7 +41,7 @@ const createCalendar = (elem, year, month) => {
     }
 
     const table = document.createElement('table');
-    table.append(createTHead(mapWeekDays), createTBody());
+    table.append(createTHead(weekDays), createTBody());
     elem.append(table);
 }
 const container = document.querySelector('.container');

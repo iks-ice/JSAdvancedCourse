@@ -2,13 +2,12 @@ const countConsiquentChars = str => {
     let counter = 1;
     let result = '';
     for (let index = 0; index < str.length; index++) {
-        const temp = `${counter}${str[index]}`;
         if (str[index] === str[index + 1]) {
             counter++;
-        } else {
-            result += temp;
-            counter = 1;
+            continue;
         }
+        result += `${counter}${str[index]}`;
+        counter = 1;
     }
     return result;
 }
@@ -32,4 +31,4 @@ const countChars = str => {
 }
 
 
-console.log(countConsiquentChars('qweqweqwe'));
+console.log(countChars('qweq 55yt6weqwe'));
