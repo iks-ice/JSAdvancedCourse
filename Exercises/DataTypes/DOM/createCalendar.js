@@ -1,38 +1,51 @@
-const createCalendar = (elem, year, month) => {
-    const weekDays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
-    const createElement = tag => document.createElement(tag);
+const createElement = tag => document.createElement(tag);
 
+const createCalendar = (elem, year, month) => {
+
+    const weekDays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
     const firstDay = new Date(year, month, 1).getDay();
     const lastMonthDay = new Date(year, month + 1, 0).getDate();
-    console.log(firstDay);
-    const createTHead = weekDayNames => {
+
+    const createTHead = weekDays => {
         const thead = createElement('thead');
-        const tr = createElement('tr');
-        weekDayNames.forEach(name => {
-            const td = createElement('td');
-            td.innerHTML = name;
-            tr.append(td);
+        const week = createElement('tr');
+        weekDays.forEach(weekDay => {
+            const day = createElement('td');
+            day.innerHTML = weekDay;
+            week.append(day);
         });
-        thead.append(tr);
+        thead.append(week);
         return thead;
     }
 
     const createTBody = () => {
         const tbody = createElement('tbody');
-        // for (let day = -firstDay + 1; day <= lastMonthDay;) {
-        //     const tr = createElement('tr');
-        //     tbody.append(tr);
-        // }
+
+        let day = firstDay === 0 ? -5 : 2 - firstDay;
+        for (; day <= lastMonthDay;) {
+            const week = createElement('tr');
+            for (let index = 0; index < 7; index++) {
+                const weekDay = createElement('td');
+                if (day > 0 && day <= lastMonthDay) {
+                    weekDay.innerHTML = day++;
+                    week.append(weekDay);
+                    continue;
+                }
+                day++;
+                week.append(weekDay);
+            }
+            tbody.append(week);
+        }
         return tbody;
     }
 
-    const table = document.createElement('table');
+    const table = createElement('table');
     table.append(createTHead(weekDays), createTBody());
     elem.append(table);
 }
-const container = document.querySelector('.container');
-createCalendar(container, 2019, 8);
 
+const container = document.querySelector('.container');
+createCalendar(container, 2019, 10);
 
 // .container {
 //     width: 100vh;
@@ -46,5 +59,3 @@ createCalendar(container, 2019, 8);
 // thead {
 //     font-weight: 700;
 // }
-
-
